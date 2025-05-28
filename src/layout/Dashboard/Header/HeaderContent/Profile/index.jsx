@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 import CardContent from '@mui/material/CardContent';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -10,24 +9,16 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import Stack from '@mui/material/Stack';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
-import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 // project imports
 import ProfileTab from './ProfileTab';
-import SettingTab from './SettingTab';
 import Avatar from 'components/@extended/Avatar';
 import MainCard from 'components/MainCard';
 import Transitions from 'components/@extended/Transitions';
-import IconButton from 'components/@extended/IconButton';
 
 // assets
-import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
-import SettingOutlined from '@ant-design/icons/SettingOutlined';
-import UserOutlined from '@ant-design/icons/UserOutlined';
 import avatar1 from 'assets/images/users/avatar-1.png';
 import useAuthStore from '../../../../../stores/AuthStore';
 import { useNavigate } from 'react-router';
@@ -41,17 +32,17 @@ function TabPanel({ children, value, index, ...other }) {
   );
 }
 
-function a11yProps(index) {
-  return {
-    id: `profile-tab-${index}`,
-    'aria-controls': `profile-tabpanel-${index}`
-  };
-}
+// function a11yProps(index) {
+//   return {
+//     id: `profile-tab-${index}`,
+//     'aria-controls': `profile-tabpanel-${index}`
+//   };
+// }
 
 // ==============================|| HEADER CONTENT - PROFILE ||============================== //
 
 export default function Profile() {
-  const theme = useTheme();
+  // const theme = useTheme();
 
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
@@ -66,11 +57,11 @@ export default function Profile() {
     setOpen(false);
   };
 
-  const [value, setValue] = useState(0);
+  // const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  // const handleChange = (event, newValue) => {
+  //   setValue(newValue);
+  // };
 
   const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
@@ -150,58 +141,12 @@ export default function Profile() {
                           </Stack>
                         </Stack>
                       </Grid>
-                      <Grid>
-                        <Tooltip title="Logout">
-                          <IconButton size="large" sx={{ color: 'text.primary' }} onClick={handleLogout}>
-                            <LogoutOutlined />
-                          </IconButton>
-                        </Tooltip>
-                      </Grid>
                     </Grid>
                   </CardContent>
 
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-label="profile tabs">
-                      <Tab
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          textTransform: 'capitalize',
-                          gap: 1.25,
-                          '& .MuiTab-icon': {
-                            marginBottom: 0
-                          }
-                        }}
-                        icon={<UserOutlined />}
-                        label="Profile"
-                        {...a11yProps(0)}
-                      />
-                      <Tab
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          textTransform: 'capitalize',
-                          gap: 1.25,
-                          '& .MuiTab-icon': {
-                            marginBottom: 0
-                          }
-                        }}
-                        icon={<SettingOutlined />}
-                        label="Setting"
-                        {...a11yProps(1)}
-                      />
-                    </Tabs>
-                  </Box>
-                  <TabPanel value={value} index={0} dir={theme.direction}>
                     <ProfileTab onLogout={handleLogout} />
-                  </TabPanel>
-                  <TabPanel value={value} index={1} dir={theme.direction}>
-                    <SettingTab />
-                  </TabPanel>
+                  </Box>
                 </MainCard>
               </ClickAwayListener>
             </Paper>

@@ -61,7 +61,7 @@ export default function AuthLogin() {
         onSubmit={(values) => {
           login(values.email, values.email);
 
-          navigate('/dashboard/default');
+          navigate('/dashboard');
         }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, touched, values }) => (
