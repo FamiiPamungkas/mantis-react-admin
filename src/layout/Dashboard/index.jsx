@@ -13,6 +13,8 @@ import Loader from 'components/Loader';
 import Breadcrumbs from 'components/@extended/Breadcrumbs';
 
 import { handlerDrawerOpen, useGetMenuMaster } from 'api/menu';
+import { Navigate } from 'react-router';
+import useAuthStore from '../../stores/AuthStore';
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
@@ -21,6 +23,8 @@ export default function DashboardLayout() {
   const { menuMasterLoading } = useGetMenuMaster();
   const downXL = useMediaQuery((theme) => theme.breakpoints.down('xl'));
 
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
   // set media wise responsive drawer
   useEffect(() => {
     handlerDrawerOpen(!downXL);
@@ -28,7 +32,7 @@ export default function DashboardLayout() {
 
   if (menuMasterLoading) return <Loader />;
 
-  return (
+  return isAuthenticated ? (
     <Box sx={{ display: 'flex', width: '100%' }}>
       <Header />
       <Drawer />
@@ -50,5 +54,7 @@ export default function DashboardLayout() {
         </Box>
       </Box>
     </Box>
+  ) : (
+    <Navigate to={'/login'} />
   );
 }
